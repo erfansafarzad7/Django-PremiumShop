@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">sub</button>
+    </form>
+
+
+    
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+
+    
+    {{ item.title }}
+    {{ item.price }}
+    {{ item.description }}
+                <a href="{% url 'orders:add_to_cart' item.id %}">add</a>
+
+        
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

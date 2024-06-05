@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">sub</button>
+    </form>    
+    
+    <a href="{% provider_login_url 'google' %}?next=/">Login with Google</a>
+
+
+    
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

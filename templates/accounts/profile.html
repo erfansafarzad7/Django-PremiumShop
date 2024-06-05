@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">sub</button>
+    </form>    
+    
+<div>
+--------------------------------
+carts
+--------------------------------
+    
+    {% for cart in user_carts.items.all %} 
+        <div>
+        -------
+                <a href="{% url 'items:detail' cart.title %}">{{ cart.title }} - {{ cart.price }}</a>
+               ---->  <a href="{% url 'orders:delete_cart' cart.id %}">delete</a>
+                
+        -------
+        </div>
+    {% endfor %}
+</div>
+
+    
+<div>
+{% if user_carts.items.count > 0 %}
+                <a href="{% url 'orders:create_order' %}">create order</a>
+{% endif %}
+--------------------------------
+orders
+--------------------------------
+    
+        {% for order in user_orders %} 
+        <div>
+        -------
+            <a href="{% url 'orders:order_detail' order.code %}">{{ order.code }} - {{ order.status }}</a>
+            {% if order.status == 'On pay' %}
+            ----> <a href="{% url 'orders:pay_order' order.code %}">pay</a>
+            {% endif %}
+        -------
+        </div>
+    {% endfor %}
+
+</div>
+    
+=====================================
+    <div>
+    <a href="{% url 'tickets:all' %}">ticket</a>
+    </div>
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

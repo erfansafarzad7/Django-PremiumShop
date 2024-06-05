@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+
+    -------------------------
+    code : {{ order.code }}
+    status : {{ order.status }}
+    {% for cart in order.items.all %}
+        <div>
+        ---------
+        {{ cart.title }} - {{ cart.discounted_price }}
+        ---------
+        </div>
+    {% endfor %}
+    {{ order.calculate_total_price }}
+    --------------------------
+
+    {% if order.status != 'Done' %}
+                <a href="{% url 'orders:cancel_order' order.code %}">cancel</a>
+    {% endif %}
+    
+    {% if order.status == 'On Pay' %}
+        <a href="{% url 'orders:pay_order' order.code %}">pay</a>
+    {% endif %}
+    
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}
