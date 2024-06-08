@@ -14,54 +14,109 @@
 
 {% block content %}
     
-        <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <button type="submit">sub</button>
-    </form>    
-    
-<div>
---------------------------------
-carts
---------------------------------
-    
-    {% for cart in user_carts.items.all %} 
-        <div>
-        -------
-                <a href="{% url 'items:detail' cart.title %}">{{ cart.title }} - {{ cart.price }}</a>
-               ---->  <a href="{% url 'orders:delete_cart' cart.id %}">delete</a>
-                
-        -------
+    <div class="offcanvas-overlay"></div>
+<!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-content">
+                        <ul class="nav">
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی </a></li>
+                            <li>پروفایل</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-</div>
-
-    
-<div>
-{% if user_carts.items.count > 0 %}
-                <a href="{% url 'orders:create_order' %}">create order</a>
-{% endif %}
---------------------------------
-orders
---------------------------------
-    
-        {% for order in user_orders %} 
-        <div>
-        -------
-            <a href="{% url 'orders:order_detail' order.code %}">{{ order.code }} - {{ order.status }}</a>
-            {% if order.status == 'On pay' %}
-            ----> <a href="{% url 'orders:pay_order' order.code %}">pay</a>
-            {% endif %}
-        -------
-        </div>
-    {% endfor %}
-
-</div>
-    
-=====================================
-    <div>
-    <a href="{% url 'tickets:all' %}">ticket</a>
     </div>
+<!-- Breadcrumb Area End-->
+    
+    
+    
+    
+    <!-- account area start -->
+            <div class="checkout-area mtb-60px">
+                <div class="container">
+                    <div class="row">
+                        <div class="ml-auto mr-auto col-lg-9">
+                            <div class="checkout-wrapper">
+                                <div id="faq" class="panel-group">
+                                    
+                                    
+                                    <form method="post">
+                                    {% csrf_token %}
+                                        
+                                        
+                                    <div class="panel panel-default single-my-account">
+                                        <div class="panel-heading my-account-title">
+                                            <h3 class="panel-title"><span>1 .</span> <a data-bs-toggle="collapse" data-parent="#faq" href="#my-account-1">ویرایش اطلاعات حساب</a></h3>
+                                        </div>
+                                        <div id="my-account-1" class="panel-collapse collapse show">
+                                            <div class="panel-body">
+                                                <div class="myaccount-info-wrapper">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                            <label for="id_username">نام کاربری:</label>
+                                                                {{ form.username }}
+                                                                {{ form.username.errors }}
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label for="id_email">ایمیل:</label>
+                                                                {{ form.email }}
+                                                                {{ form.email.errors }}
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="billing-info">
+                                                                <label for="id_phone_number">شماره تلفن:</label>
+                                                                {{ form.phone_number }}
+                                                                {{ form.phone_number.errors }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="billing-back-btn">
+                                                        <div class="billing-btn">
+                                                            <button type="submit">ثبت</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                        
+                                    </form>
+                                    
+                                    
+                                    <div class="panel panel-default single-my-account">
+                                        <div class="panel-heading my-account-title">
+                                            <h3 class="panel-title"><span>3 .</span> <a href="{% url 'orders:my_carts' %}">مشاهده سبد خرید</a></h3>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default single-my-account">
+                                        <div class="panel-heading my-account-title">
+                                            <h3 class="panel-title"><span>4 .</span> <a href="{% url 'orders:my_orders' %}">مشاهده سفارشات</a></h3>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default single-my-account">
+                                        <div class="panel-heading my-account-title">
+                                            <h3 class="panel-title"><span>5 .</span> <a href="{% url 'tickets:all' %}">تیکت ها</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- account area end -->
+    
 {% endblock %}
 
 

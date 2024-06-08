@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 STATUS_CHOICES = (
@@ -19,3 +21,9 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.title}"
+
+
+@receiver(post_save, sender=Ticket)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        print(instance.text)

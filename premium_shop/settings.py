@@ -39,15 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'accounts.apps.AccountsConfig',
-    'items.apps.ItemsConfig',
-    'orders.apps.OrdersConfig',
-    'tickets.apps.TicketsConfig',
+    'accounts',
+    'items',
+    'orders',
+    'tickets',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
     # 'django_recaptcha',
 
 ]
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'allauth.account.middleware.AccountMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'premium_shop.urls'
@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'items.custom_context_processors.home'
             ],
         },
 
@@ -122,7 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
+
 
 USE_I18N = True
 
@@ -133,6 +135,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -141,35 +149,36 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.User"
 
-SITE_ID = 2
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-LOGIN_REDIRECT_URL = '/shop/all-items/'
-LOGOUT_REDIRECT_URL = '/shop/all-items/'
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': True,
-        'FETCH_USERINFO': True
-    }
-}
-
-# Add your client ID and secret
-SOCIALACCOUNT_PROVIDERS['google']['APP'] = {
-    'client_id': '551279271595-6lsp3409d9vqa0ga0tt21pvpg6or87p0.apps.googleusercontent.com',
-    'secret': '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',
-}
+# SITE_ID = 2
+#
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# ]
+#
+LOGIN_URL = 'auth:login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+#
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         },
+#         'OAUTH_PKCE_ENABLED': True,
+#         'FETCH_USERINFO': True
+#     }
+# }
+#
+# # Add your client ID and secret
+# SOCIALACCOUNT_PROVIDERS['google']['APP'] = {
+#     'client_id': '551279271595-6lsp3409d9vqa0ga0tt21pvpg6or87p0.apps.googleusercontent.com',
+#     'secret': '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',
+# }
 
 # RECAPTCHA_PUBLIC_KEY = '6Ldo4PEpAAAAAFQ-46RoeGKbWcHaRYa4MpS73izb'
 # RECAPTCHA_PRIVATE_KEY = '6Ldo4PEpAAAAALmA1eTgw_14SQ9OdNDpijDlv73-'

@@ -14,14 +14,369 @@
 
 {% block content %}
     
-
     
-    {{ item.title }}
-    {{ item.price }}
-    {{ item.description }}
-                <a href="{% url 'orders:add_to_cart' item.id %}">add</a>
-
+    <!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-content">
+                        <ul class="nav">
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی </a></li>
+                            <li>{{ item.title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Breadcrumb Area End-->
+    
+    
+    
+            <!-- Shop details Area start -->
+            <section class="product-details-area mtb-60px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="single-product-slider slider-nav-style-1 mb-30px">
+                                <div class="single-product-slider-wrapper swiper-wrapper">
+                                    <div class="single-product-slider-item swiper-slide">
+                                        <a href="#"><img class="img-responsive" src="{{ item.image.url }}" alt="slider-item-img"></a>
+                                    </div>
+                                </div>
+                                <!-- Add Arrows -->
+{#                                <div class="swiper-buttons">#}
+{#                                    <div class="swiper-button-next"></div>#}
+{#                                    <div class="swiper-button-prev"></div>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="product-details-content">
+                                <h2>{{ item.title }}</h2>
+                                <p class="reference">امکان مرجوعی :<span> وجود دارد</span></p>
+                                <div class="pro-details-rating-wrap">
+{#                                    <div class="rating-product">#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                    </div>#}
+                                    
+                                    
+                                    
+                                    
+                                    
+{#                                    <span class="read-review"><a class="reviews" href="#">مشاهده نظرات (1)</a></span>#}
+                                
+                                    
+                                    
+                                
+                                
+                                </div>
+                                <div class="pricing-meta">
+                                    <ul>
+                                    
+                                        {% if item.discount %}
+                                        <li class="old-price not-cut"> {{ item.discounted_price }} تومان با {{ item.discount }} درصد تخفیف </li>
+                                        {% else %}
+                                        <li class="old-price not-cut"> {{ item.discounted_price }} تومان  </li>
+                                        {% endif %} 
+                                    
+                                    </ul>
+                                </div>
+                                <div class="pro-details-list">
+                                    
+                                    
+{#                                    <p>{{ item.description }}</p>#}
+                                    
+                                    
+                                    
+{#                                    <ul>#}
+{#                                        <li>- ویژگی اول محصول</li>#}
+{#                                        <li>- ویژگی دوم محصول</li>#}
+{#                                        <li>- ویژگی سوم محصول</li>#}
+{#                                    </ul>#}
+                                </div>
+                                <div class="pro-details-quality mt-0px">
+{#                                    <div class="cart-plus-minus">#}
+{#                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />#}
+{#                                    </div>#}
+                                    <div class="pro-details-cart btn-hover">
+                                        <a href="{% url 'orders:add_to_cart' item.id %}">  افزودن به سبد خرید</a>
+                                    </div>
+                                </div>
+{#                                <div class="pro-details-wish-com">#}
+{#                                    <div class="pro-details-wishlist">#}
+{#                                        <a href="#"><i class="icon-heart"></i>افزودن به لیست علاقه مندی ها</a>#}
+{#                                    </div>#}
+{#                                    <div class="pro-details-compare">#}
+{#                                        <a href="#"><i class="icon-shuffle"></i>مقایسه محصول</a>#}
+{#                                    </div>#}
+{#                                </div>#}
+                                <div class="pro-details-social-info">
+                                    <span>اشتراک گذاری :</span>
+                                    <div class="social-info">
+                                        <ul>
+                                            <li>
+                                                <a title="Facebook" href="#"><i class="ion-social-facebook"></i></a>
+                                            </li>
+                                            <li>
+                                                <a title="Twitter" href="#"><i class="ion-social-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a title="Google+" href="#"><i class="ion-social-google"></i></a>
+                                            </li>
+                                            <li>
+                                                <a title="Instagram" href="#"><i class="ion-social-instagram"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pro-details-policy">
+                                    <ul>
+                                        <li><img src="{% static 'images/icons/policy.png' %}" alt="" /><span>سیاست امنیتی : توضیحات مربوط به این ویژگی</span></li>
+{#                                        <li><img src="{% static 'images/icons/policy-2.png' %}" alt="" /><span>حمل و نقل : توضیحات مربوط به این ویژگی</span></li>#}
+                                        <li><img src="{% static 'images/icons/policy-3.png' %}" alt="" /><span>ضمانت مرجوعی : توضیحات مربوط به این ویژگی</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Shop details Area End -->
+            <!-- product details description area start -->
+            <div class="description-review-area mb-60px">
+                <div class="container">
+                    <div class="description-review-wrapper">
+                        <div class="description-review-topbar nav">
+                            
+                            <a class="active" data-bs-toggle="tab" href="#des-details1">توضیحات</a>
+                            
+{#                            <a  data-bs-toggle="tab" href="#des-details2">جزئیات محصول</a>#}
+                            
+                            
+                            
+{#                            <a data-bs-toggle="tab" href="#des-details3">   نظرات   count  </a>#}
+                            
+                            
+                            
+                        </div>
+                        <div class="tab-content description-review-bottom">
+{#                            <div id="des-details2" class="tab-pane active">#}
+{#                                <div class="product-anotherinfo-wrapper">#}
+{#                                    <ul>#}
+{#                                        <li><span>وزن</span> 400 گرم</li>#}
+{#                                        <li><span>ابعاد</span>10.10.15 سانتی متر</li>#}
+{#                                        <li><span>رنگ</span>سفید ، مشکی و خاکستری</li>#}
+{#                                        <li><span>سایر اطلاعات</span>محصول دارای دفترچه راهنما می باشد.</li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+                            <div id="des-details1" class="tab-pane active">
+                                <div class="product-description-wrapper">
+                                    <p>{{ item.description }}</p>
+                                </div>
+                            </div>
+{#                            <div id="des-details3" class="tab-pane">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-lg-7">#}
+{#                                        <div class="review-wrapper">#}
+{#                                            <div class="single-review">#}
+{#                                                <div class="review-img">#}
+{#                                                    <img src=assets/images/review-image/1.png alt="" />#}
+{#                                                </div>#}
+{#                                                <div class="review-content">#}
+{#                                                    <div class="review-top-wrap">#}
+{#                                                        <div class="review-left">#}
+{#                                                            <div class="review-name">#}
+{#                                                                <h4>رضا محمدی</h4>#}
+{#                                                            </div>#}
+{#                                                            <div class="rating-product">#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="review-left">#}
+{#                                                            <a href="#">پاسخ دادن</a>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <div class="review-bottom">#}
+{#                                                        <p>#}
+{#                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی است.#}
+{#                                                        </p>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="single-review child-review">#}
+{#                                                <div class="review-img">#}
+{#                                                    <img src="assets/images/review-image/1.png" alt="" />#}
+{#                                                </div>#}
+{#                                                <div class="review-content">#}
+{#                                                    <div class="review-top-wrap">#}
+{#                                                        <div class="review-left">#}
+{#                                                            <div class="review-name">#}
+{#                                                                <h4>رضا محمدی</h4>#}
+{#                                                            </div>#}
+{#                                                            <div class="rating-product">#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                                <i class="ion-android-star"></i>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="review-left">#}
+{#                                                            <a href="#">پاسخ دادن</a>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <div class="review-bottom">#}
+{#                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی است.</p>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="col-lg-5">#}
+{#                                        <div class="ratting-form-wrapper pl-50">#}
+{#                                            <h3>ارسال نظر برای این محصول</h3>#}
+{#                                            <div class="ratting-form">#}
+{#                                                <form action="#">#}
+{#                                                    <div class="star-box">#}
+{#                                                        <span>امتیاز شما :</span>#}
+{#                                                        <div class="rating-product">#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <div class="row">#}
+{#                                                        <div class="col-md-6">#}
+{#                                                            <div class="rating-form-style mb-10">#}
+{#                                                                <input placeholder="نام" type="text" />#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-md-6">#}
+{#                                                            <div class="rating-form-style mb-10">#}
+{#                                                                <input placeholder="ایمیل" type="email" />#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-md-12">#}
+{#                                                            <div class="rating-form-style form-submit">#}
+{#                                                                <textarea name="Your Review" placeholder="متن پیام"></textarea>#}
+{#                                                                <input type="submit" value="ارسال" />#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </form>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- product details description area end -->
         
+        
+        
+        
+        
+        
+        
+        <!-- Feature Area start -->
+{#        <div class="feature-area single-product-responsive mt-60px mb-30px">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-12">#}
+{#                        <div class="section-title">#}
+{#                            <h2 class="section-heading">ممکن است دوست داشته باشید</h2>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="feature-slider-two slider-nav-style-1">#}
+{#                    <div class="feature-slider-wrapper swiper-wrapper">#}
+{#                        #}
+{#                        <!-- Single Item -->#}
+{#                        <div class="feature-slider-item swiper-slide">#}
+{#                            <article class="list-product">#}
+{#                                <div class="img-block">#}
+{#                                    <a href="single-product.html" class="thumbnail">#}
+{#                                        <img class="first-img" src="assets/images/product-image/6.jpg" alt="" />#}
+{#                                        <img class="second-img" src="assets/images/product-image/7.jpg" alt="" />#}
+{#                                    </a>#}
+{#                                    <div class="quick-view">#}
+{#                                        <a class="quick_view" href="#" data-link-action="quickview" title="مشاهده سریع" data-bs-toggle="modal" data-bs-target="#exampleModal">#}
+{#                                            <i class="icon-magnifier icons"></i>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <ul class="product-flag">#}
+{#                                    <li class="new">جدید</li>#}
+{#                                </ul>#}
+{#                                <div class="product-decs">#}
+{#                                    <a class="inner-link" href="shop-4-column.html"><span>عنوان محصول</span></a>#}
+{#                                    <h2><a href="single-product.html" class="product-link">توضیحات مربوط به محصول</a></h2>#}
+{#                                    <div class="rating-product">#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                        <i class="ion-android-star"></i>#}
+{#                                    </div>#}
+{#                                    <div class="pricing-meta">#}
+{#                                        <ul>#}
+{#                                            <li class="old-price not-cut">50.000 تومان</li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="add-to-link">#}
+{#                                    <ul>#}
+{#                                        <li class="cart"><a class="cart-btn" href="#">خرید</a></li>#}
+{#                                        <li>#}
+{#                                            <a href="wishlist.html"><i class="icon-heart"></i></a>#}
+{#                                        </li>#}
+{#                                        <li>#}
+{#                                            <a href="compare.html"><i class="icon-shuffle"></i></a>#}
+{#                                        </li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </article>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    #}
+{#                    <!-- Add Arrows -->#}
+{#                    <div class="swiper-buttons">#}
+{#                        <div class="swiper-button-next"></div>#}
+{#                        <div class="swiper-button-prev"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <!-- Feature Area End -->
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 {% endblock %}
 
 

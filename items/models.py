@@ -10,6 +10,7 @@ class Category(models.Model):
 
 
 class Item(models.Model):
+    image = models.ImageField(null=True, blank=True)
     title = models.CharField(max_length=150, unique=True)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category')
@@ -24,4 +25,4 @@ class Item(models.Model):
 
     @property
     def discounted_price(self):
-        return int(self.price * (1 - self.discount / 100))
+        return int(self.price * (1 - self.discount / 100)) if self.discount else self.price

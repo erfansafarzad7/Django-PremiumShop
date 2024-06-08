@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
+{#{% load socialaccount %}#}
 
 
 
@@ -15,11 +15,71 @@
 {% block banner %} {% endblock %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <button type="submit">sub</button>
-    </form>
+
+    
+    
+    
+    
+    
+    
+    
+            <!-- login area start -->
+            <div class="login-register-area mtb-60px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                            <div class="login-register-wrapper">
+                                <div class="login-register-tab-list nav">
+                                    <a href="{% url 'auth:login' %}">
+                                        <h4>ورود</h4>
+                                    </a>
+                                    <a class="active"  href="#">
+                                        <h4>ثبت نام</h4>
+                                    </a>
+                                </div>
+                                <div class="tab-content">
+                                    <div id="lg1" class="tab-pane active">
+                                        <div class="login-form-container">
+                                            <div class="login-register-form">
+                                                <form action="#" method="post">
+                                                    {% csrf_token %}
+                                                    
+                                                    <label for="id_username">Username:</label>
+                                                    <input type="text" name="username" maxlength="40" required id="id_username">
+                                                            {{ form.username.errors }}                                        
+                                                    <label for="id_email">Email address:</label>
+                                                    <input type="email" name="email" maxlength="254" required id="id_email">
+                                                            {{ form.email.errors }}                                        
+                                                                                                    
+                                                    <label for="id_phone_number">Phone number:</label>
+                                                    <input type="text" name="phone_number" maxlength="11" id="id_phone_number">
+                                                            {{ form.phone_number.errors }}                                        
+                                                                                                    
+                                                    <label for="id_password">Password:</label>
+                                                    <input type="text" name="password" maxlength="128" required id="id_password">
+                                                            {{ form.password.errors }}                                        
+
+                                                    <div class="button-box">
+                                                        <button type="submit"><span>ثبتنام</span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- login area end -->
+    
+    
+    
+    
+    
+    
+    
     
     
 {% endblock %}

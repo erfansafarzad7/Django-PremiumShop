@@ -1,10 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+    <div class="footer-area">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px">
+                                <div class="single-wedge">
+                                    <h4 class="footer-herading">درباره ما</h4>
+                                    <p class="text-infor">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                                    <div class="need-help">
+                                        <p class="phone-info">
+                                            تماس با ما :
+                                            <span class="tm-ltr">
+                                                021 0000 0000 <br />
+                                                021 0000 0000
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 mb-md-30px mb-lm-30px">
+                                <div class="single-wedge">
+                                    <h4 class="footer-herading">اطلاعات</h4>
+                                    <div class="footer-links">
+                                        <ul>
+                                            {% if request.user.is_authenticated %}
+                                            <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
+                                            {% else %}
+                                            <li><a href="{% url 'auth:login' %}">ورود</a></li>
+                                            {% endif %}
+                                        
+                                            <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
+                                        
+                                            <li><a href="{% url 'orders:my_carts' %}">سبد خرید</a></li>
+                                        
+                                            <li><a href="{% url 'orders:my_orders' %}">سفارشات</a></li>
+                                        
+                                            <li><a href="{% url 'tickets:all' %}">پشتیبانی</a></li>
+                                        
+                                            {% if request.user.is_authenticated %}
+                                            <li><a href="{% url 'auth:logout' %}">خروج</a></li>
+                                            {% endif %}
+                        
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-2 mb-sm-30px mb-lm-30px">
+                                <div class="single-wedge">
+                                    <h4 class="footer-herading">دسترسی سریع</h4>
+                                    <div class="footer-links">
+                                        <ul>
+                                            <li><a href="#">مشاهده قوانین</a></li>
+                                            <li><a href="#">تخفیفات</a></li>
+                                            <li><a href="#">محصولات جدید</a></li>
+                                            <li><a href="#">پرفروش ترین ها</a></li>
+                                            <li><a href="login.html">ورود</a></li>
+                                            <li><a href="my-account.html">حساب من</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 ">
+                                <div class="single-wedge">
+                                    <div class="social-info">
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="icon-social-facebook"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="icon-social-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="icon-social-instagram"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="icon-social-google"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+{#								<p class="copy-text">فارسی و <b>راست چین</b> شده</p>#}
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <img class="payment-img" src="assets/images/icons/payment.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

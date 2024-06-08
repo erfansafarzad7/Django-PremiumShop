@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.exceptions import ValidationError
+from .validators import phone_number_validation
 # from django_recaptcha.fields import ReCaptchaField
 from .models import User, OTP
 
@@ -51,6 +53,21 @@ class OTPForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+    # phone_number = forms.CharField(max_length=11, required=True, validators=[phone_number_validation, ])
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'phone_number', )
+        fields = ('username', 'email', 'phone_number')
+
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField()
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            User.objects.get(email__exact=email)
+        except OTP.DoesNotExist:
+            raise forms.ValidationError('kolan hamchin emaili mojod nist')
+
+        return email

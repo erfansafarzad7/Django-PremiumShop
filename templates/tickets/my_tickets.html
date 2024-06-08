@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+    
+    
+        <div class="offcanvas-overlay"></div>
+<!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-content">
+                        <ul class="nav">
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی </a></li>
+                            <li>تیکت های من</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Breadcrumb Area End-->
+    
+    
+    <div class="container mt-4 mb-4">
+        <button ><a href="{% url 'tickets:send' %}"><h5 style="color: #3bbf98;"> ارسال تیکت جدید </h5></a></button>
+    </div>
+    
+
+{% for t in my_tickets %}
+<div class="contact-area mtb-60px">
+    <div class="container">
+        <div class="custom-row-2">
+
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="contact-form">
+                        <div class="contact-title">
+
+                            <h6>وضعیت : {{ t.status }}</h6>
+                        </div>
+                        </br>
+                        <p class="form-messege">موضوع : {{ t.title }}</p>
+                        </br>
+
+                        <p class="form-messege">متن تیکت : {{ t.text }}</p>
+                        </br>
+
+                        {% if t.response %}
+                        <p class="form-messege">پاسخ : {{ t.response }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+    
+    
+    
+    
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

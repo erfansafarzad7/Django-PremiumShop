@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {% endblock %}
+
+      
+      
+{% block style %} {% endblock %}
+
+
+
+{% block banner %} {% endblock %}
+
+{% block content %}
+    
+
+    
+    
+    <!-- Breadcrumb Area Start -->
+    <div class="offcanvas-overlay"></div>
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumb-content">
+                            <ul class="nav">
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی </a></li>
+                                <li>سبد خرید</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Breadcrumb Area End-->
+    
+    
+    {%  if cart.items.count > 0 %}
+    
+            <!-- cart area start -->
+            <div class="cart-main-area mtb-60px">
+                <div class="container">
+                    <h3 class="cart-page-title">سبد خرید شما</h3>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            
+{#                            <form action="#">#}
+                            
+                                <div class="table-content table-responsive cart-table-content">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>تصویر</th>
+                                                <th>نام محصول</th>
+                                                <th>قیمت</th>
+                                                <th>تخفیف</th>
+                                                <th>قیمت نهایی</th>
+                                                <th>عملیات</th>  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                        {% for cart in cart.items.all %}
+                                        
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    <a  href="{% url 'shop:detail' cart.title %}"><img class="img-responsive" src="{{ cart.image.url }}" alt="" /></a>
+                                                </td>
+                                                <td class="product-name"><a href="{% url 'shop:detail' cart.title %}" style="color: #146cda;">{{ cart.title }}</a></td>
+                                                <td class="product-price-cart"><span class="amount">{{ cart.price }}</span></td>
+                                                <td class="product-price-cart"><span class="amount">{{ cart.discount }} درصد </span></td>
+                                                <td class="product-subtotal"> {{ cart.discounted_price }} تومان </td>
+                                                <td class="product-remove">
+                                                    <a href="{% url 'orders:delete_cart' cart.id %}"><i class="icon-close"></i></a>
+                                                </td>
+                                            </tr>
+                                        
+                                        {% endfor %}
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                        
+                        
+                        
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="cart-shiping-update-wrapper">
+                                            <div class="cart-shiping-update">
+                                                <a href="{% url 'orders:delete_all_carts' %}">پاک کردن سبد خرید</a>
+                                            </div>
+{#                                            <div class="cart-clear">#}
+{#                                                <button>بروزرسانی سبد خرید</button>#}
+{#                                                <a href="#">ایجاد سفارش</a>#}
+{#                                            </div>#}
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        
+{#                            </form>#}
+                            
+                        
+                        
+                            <div class="row">
+                                
+                                
+                                
+                                
+{#                                <div class="col-lg-4 col-md-6 mb-lm-30px">#}
+{#                                    <div class="cart-tax">#}
+{#                                        <div class="title-wrap">#}
+{#                                            <h4 class="cart-bottom-title section-bg-gray">محاسبه هزینه ارسال و مالیات</h4>#}
+{#                                        </div>#}
+{#                                        <div class="tax-wrapper">#}
+{#                                            <p>کشور و استان خود را جهت تخمین قیمت ارسال و مالیات وارد کنید.</p>#}
+{#                                            <div class="tax-select-wrapper">#}
+{#                                                <div class="tax-select">#}
+{#                                                    <label>#}
+{#                                                        * کشور#}
+{#                                                    </label>#}
+{#                                                    <select class="email s-email s-wid">#}
+{#                                                        <option>ایران</option>#}
+{#                                                        <option>قطر</option>#}
+{#                                                        <option>امارات</option>#}
+{#                                                        <option>عراق</option>#}
+{#                                                        <option>ارمنستان</option>#}
+{#                                                    </select>#}
+{#                                                </div>#}
+{#                                                <div class="tax-select">#}
+{#                                                    <label>#}
+{#                                                        * استان / ایالت#}
+{#                                                    </label>#}
+{#                                                    <select class="email s-email s-wid">#}
+{#                                                        <option>استان یک</option>#}
+{#                                                        <option>استان دو</option>#}
+{#                                                        <option>استان سه</option>#}
+{#                                                        <option>استان چهار</option>#}
+{#                                                        <option>استان پنج</option>#}
+{#                                                    </select>#}
+{#                                                </div>#}
+{#                                                <div class="tax-select mb-25px">#}
+{#                                                    <label>#}
+{#                                                        * کد پستی#}
+{#                                                    </label>#}
+{#                                                    <input type="text" />#}
+{#                                                </div>#}
+{#                                                <button class="cart-btn-2" type="submit">ثبت اطلاعات</button>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+                                
+                                
+                                
+                                
+                                
+                                <div class="col-lg-4 col-md-6 mb-lm-30px">
+                                    <div class="discount-code-wrapper">
+                                        <div class="title-wrap">
+                                            <h4 class="cart-bottom-title section-bg-gray">ثبت کد تخفیف</h4>
+                                        </div>
+                                        <div class="discount-code">
+                                        
+                                            {% if not cart.coupon %}
+                                            <p>اگر کد تخفیف دارید، وارد نمایید.</p>
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <input type="text" name="code" maxlength="30" required id="id_code">
+                                                <button class="cart-btn-2" type="submit">ثبت کد تخفیف</button>
+                                            </form>
+                                            {% else %}
+                                            <p>{{ cart.coupon.discount_percent }} درصد تخفیف برای شما اعمال شد! </p>
+                                            {% endif %}
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                <div class="col-lg-4 col-md-12 mt-md-30px">
+                                    <div class="grand-totall">
+                                        <div class="title-wrap">
+                                            <h4 class="cart-bottom-title section-bg-gary-cart">مجموع سبد خرید</h4>
+                                        </div>
+                                        <h5>جمع محصولات <span>{{ cart.calculate_total_price_without_discount }} تومان</span></h5>
+                                        
+                                        <h5> کل تخفیف <span>{{ cart.calculate_total_discount }} درصد </span></h5>
+                                        
+                                        {% if cart.coupon %}
+                                        <h5> کد تخفیف <span>{{ cart.coupon.discount_percent }} درصد </span></h5>
+                                        {% endif %}
+                                    
+                                        
+{#                                        <div class="total-shipping">#}
+{#                                            <h5>انتخاب نوع ارسال</h5>#}
+{#                                            <ul>#}
+{#                                                <li><input type="checkbox" /> پست پیشتاز <span>30.000 تومان</span></li>#}
+{#                                                <li><input type="checkbox" /> پست سفارشی <span>20.000 تومان</span></li>#}
+{#                                            </ul>#}
+{#                                        </div>#}
+                                        
+                                        <h4 class="grand-totall-title">جمع نهایی <span>{{ cart.calculate_total_price_with_coupon }} تومان</span></h4>
+                                        <a href="{% url 'orders:create_order' %}">تسویه حساب</a>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- cart area end -->
+    {% else %}
+                    <div class="cart-main-area mtb-60px">
+                <div class="container">
+                    <h3 class="cart-page-title">سبد خرید شما خالی است</h3>
+                </div>
+                    </div>
+    {% endif %}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+{% endblock %}
+
+
+{% block scripts %} {% endblock %}

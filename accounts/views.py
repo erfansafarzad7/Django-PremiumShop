@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -6,12 +6,23 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic import FormView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserCreationForm, ProfileForm, OTPForm
+from .forms import UserCreationForm, ProfileForm, OTPForm, ForgetPasswordForm
 from .models import User, OTP
 from orders.models import Order, Cart
 
 from datetime import datetime, timedelta
 import random
+import string
+
+
+def generate_random_password(length=12):
+    # Create the character pool
+    characters = string.ascii_letters + string.digits
+
+    # Generate the password
+    password = ''.join(random.choice(characters) for i in range(length))
+
+    return password
 
 
 def generate_otp(user):
@@ -25,10 +36,10 @@ def send_otp(user, field):
 
     match field:
         case 'email':
-            print('send ', code, 'to email ', field)
+            print('send ', code, 'to email ', user.email)
 
         case 'phone_number':
-            print('send ', code, 'to phone ', field)
+            print('send ', code, 'to phone ', user.phone_number)
 
 
 def update_user(request, session, user_entered_code):
@@ -37,12 +48,17 @@ def update_user(request, session, user_entered_code):
 
     if str(user_entered_code) == otp.code:
 
-        if session['register'] in session:
+        if 'register' in session:
             user.is_verified = True
+            user.save()
             user = authenticate(request, username=session['email'], password=session['password'])
             if user:
                 login(request, user)
-        else:
+        elif 'set_new_password' in session:
+            new_pass = generate_random_password()
+            user.set_password(new_pass)
+            print(new_pass)
+        elif ('email' and 'phone_number') in session:
             user.email = session['email']
             user.phone_number = session['phone_number']
 
@@ -54,7 +70,7 @@ def update_user(request, session, user_entered_code):
 def check_delay(request):
     now = datetime.now()
 
-    if 'last_try' in request.session:
+    if 'delay' in request.session:
         str_time = request.session['delay']['time']
         last_try = datetime.strptime(str_time, '%Y-%m-%d %H:%M:%S')
     else:
@@ -84,7 +100,7 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.info(request, 'you already registered')
-            return redirect('items:all_items')
+            return redirect('shop:home')
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -107,7 +123,7 @@ class VerifyView(FormView):
     """
     form_class = OTPForm
     template_name = 'accounts/otp.html'
-    success_url = reverse_lazy('items:all_items')
+    success_url = reverse_lazy('shop:home')
 
     def form_valid(self, form):
         cd = form.cleaned_data
@@ -131,7 +147,7 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     """
     template_name = 'accounts/login.html'
     success_message = "با موفقیت وارد شدید !"
-    next_page = reverse_lazy('items:all_items')
+    next_page = reverse_lazy('shop:home')
 
 
 class UserProfileView(LoginRequiredMixin, DetailView, UpdateView):
@@ -151,21 +167,19 @@ class UserProfileView(LoginRequiredMixin, DetailView, UpdateView):
         if form.has_changed() and delay is True:
             changed_fields = form.changed_data
 
-            if len(changed_fields) > 1:
-                form.add_error(None, 'cant change 2 fild at same time bitch')
-                return self.form_invalid(form)
-
             if 'username' not in changed_fields:
-                send_otp(self.request.user, changed_fields[0])
+                send_otp(self.get_object(), changed_fields[0])
 
                 self.request.session['user_info'] = {
                     'username': cd['username'],
                     'email': cd['email'],
-                    'phone_number': cd['phone_number']
+                    'phone_number': cd['phone_number'],
                 }
+
                 return redirect('auth:verify')
 
         else:
+            messages.warning(self.request, f"try after {delay[1]}")
             form.add_error(None, f"try after {delay[1]} ")
             return self.form_invalid(form)
 
@@ -185,3 +199,35 @@ class UserProfileView(LoginRequiredMixin, DetailView, UpdateView):
         context['user_carts'] = user_carts
 
         return context
+
+
+# class ChangePasswordView(LoginRequiredMixin, UpdateView):
+#     # get form data save to session/user_info:change pass:true and redirect to verify
+#     pass
+
+class ForgetPasswordView(FormView):
+    form_class = ForgetPasswordForm
+    template_name = 'accounts/forget_password.html'
+    success_url = reverse_lazy('auth:login')
+
+    def form_valid(self, form):
+        cd = form.cleaned_data
+        user = User.objects.get(email__exact=cd['email'])
+        delay = check_delay(self.request)
+        if delay is True:
+            send_otp(user, 'email')
+
+            self.request.session['user_info'] = {
+                'username': user.username,
+                'email': cd['email'],
+                'set_new_password': True
+            }
+
+            return redirect('auth:verify')
+
+        else:
+            messages.warning(self.request, f"try after {delay[1]}")
+            form.add_error(None, f"try after {delay[1]} ")
+            return self.form_invalid(form)
+
+        return super().form_valid(form)

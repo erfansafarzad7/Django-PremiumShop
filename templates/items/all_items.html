@@ -14,32 +14,227 @@
 
 {% block content %}
     
-{{ request.user.email }}
-    
-    {% if request.user.is_authenticated %} 
-        <form action="{% url 'auth:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log out</button>
-        </form>
-    {% endif %}
-        
-  <form id="form">
-        {% csrf_token %}
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="q" placeholder="search">
-    <button type="submit" >Search</button>
-  </form>
     
     
-    
-    {% for item in items %}
-        <div>
-            -------------
-                <a href="{% url 'items:detail' item.title %}">{{ item.title }} - {{ item.price }}</a>
-                <a href="{% url 'orders:add_to_cart' item.id %}">add</a>
-            -------------
+<div class="offcanvas-overlay"></div>
+<!-- Breadcrumb Area Start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-content">
+                        <ul class="nav">
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی </a></li>
+                            <li>همه محصولات</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endfor %}
+    </div>
+<!-- Breadcrumb Area End-->
+    
+    
+            <div class="shop-category-area mt-30px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <!-- Shop Top Area Start -->
+                            <div class="shop-top-bar d-flex">
+                                <!-- Left Side start -->
+                                <div class="shop-tab nav d-flex">
+                                    
+{#                                    <a class="active" href="#shop-1" data-bs-toggle="tab">#}
+{#                                        <i class="fa fa-th"></i>#}
+{#                                    </a>#}
+{#                                    #}
+{#                                    <a href="#shop-2" data-bs-toggle="tab">#}
+{#                                        <i class="fa fa-list"></i>#}
+{#                                    </a>#}
+                                    
+                                    <p>  {{ items.count }} آیتم وجود دارد   </p>
+                                    
+                                </div>
+                            </div>
+
+                            
+                            
+                            <div class="shop-bottom-area mt-35">
+                                <div class="tab-content jump">
+                                    
+                                    <!-- Tab One Start -->
+                                    <div id="shop-1" class="tab-pane active">
+                                        <div class="row responsive-md-class">
+                                        
+                                    {% for item in items %}
+                                        
+                                            <div class="col-xl-3 col-md-4 col-sm-6 ">
+                                                <article class="list-product">
+                                                    <div class="img-block">
+                                                        <a href="{% url 'shop:detail' item.title %}" class="thumbnail">
+                                                            <img class="first-img" src="{{ item.image.url }}" alt="" />
+                                                            <img class="second-img" src="{{ item.image.url }}" alt="" />
+                                                        </a>
+                                                    </div>
+{#                                                    <ul class="product-flag">#}
+{#                                                        <li class="new">جدید</li>#}
+{#                                                    </ul>#}
+                                                    <div class="product-decs">
+                                                        <a class="inner-link" href="{% url 'shop:detail' item.title %}"><span>{{ item.title }}</span></a>
+                                                        <h2><a href="" class="product-link">{{ item.description|slice:"20" }}...</a></h2>
+{#                                                        <div class="rating-product">#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                            <i class="ion-android-star"></i>#}
+{#                                                        </div>#}
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                            
+                                                                {% if item.discount %}
+                                                                <li class="old-price">{{ item.price }} تومان</li>
+                                                                <li class="current-price">{{ item.discounted_price }} تومان</li>
+                                                                <li class="discount-price">-{{ item.discount }}%</li>
+                                                                {% else %}
+                                                                <li class="current-price">{{ item.price }} تومان</li>
+                                                                {% endif %}
+                                                            
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-to-link">
+                                                        <ul>
+                                                            <li class="cart"><a class="cart-btn" href="{% url 'orders:add_to_cart' item.id %}">خرید</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                    {% endfor %}
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- Tab One End -->
+                                    
+                                    
+                                    <!-- Tab Two Start -->
+{#                                    {% for item in items %}#}
+{#                                        #}
+{#                                    <div id="shop-2" class="tab-pane">#}
+{#                                        <div class="shop-list-wrap mb-30px scroll-zoom">#}
+{#                                            <div class="row list-product m-0px">#}
+{#                                                <div class="col-md-12 padding-0px">#}
+{#                                                    <div class="row">#}
+{#                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">#}
+{#                                                            <div class="left-img">#}
+{#                                                                <div class="img-block">#}
+{#                                                                    <a href="{% url 'shop:detail' item.title %}" class="thumbnail">#}
+{#                                                                        <img class="first-img" src="{{ item.image.url }}" alt="" />#}
+{#                                                                        <img class="second-img" src="{{ item.image.url }}" alt="" />#}
+{#                                                                    </a>#}
+{#                                                                </div>#}
+{#                                                                <ul class="product-flag">#}
+{#                                                                    <li class="new">جدید</li>#}
+{#                                                                </ul>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">#}
+{#                                                            <div class="product-desc-wrap">#}
+{#                                                                <div class="product-decs">#}
+{#                                                                    <a class="inner-link" href="{% url 'shop:detail' item.title %}"><span>{{ item.title }}</span></a>#}
+{#                                                                    <h2><a href="" class="product-link">{{ item.description|slice:"20" }}...</a></h2>#}
+{#                                                                    <div class="rating-product">#}
+{#                                                                        <i class="ion-android-star"></i>#}
+{#                                                                        <i class="ion-android-star"></i>#}
+{#                                                                        <i class="ion-android-star"></i>#}
+{#                                                                        <i class="ion-android-star"></i>#}
+{#                                                                        <i class="ion-android-star"></i>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="product-intro-info">#}
+{#                                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی از صنعت است.</p>#}
+{#                                                                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون که لازم است.</p>#}
+{#                                                                        <p>برای شرایط فعلی مورد نیاز و بهبود ابزارهای کاربردی می باشد.</p>#}
+{#                                                                        <p>محصولات زیادی در شصت و سه درصد گذشته حال و آینده است.</p>#}
+{#                                                                    </div>#}
+{#                                                                </div>#}
+{#                                                                <div class="box-inner">#}
+{#                                                                    <div class="in-stock">وضعیت : <span>موجود</span></div>#}
+{#                                                                    <div class="pricing-meta">#}
+{#                                                                        <ul>#}
+{#                                                                            <li class="old-price">{{ item.discounted_price }} تومان</li>#}
+{#                                                                        </ul>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="add-to-link">#}
+{#                                                                        <ul>#}
+{#                                                                            <li class="cart"><a title="افزودن به سبد خرید" class="cart-btn" href="{% url 'orders:add_to_cart' item.id %}">افزودن به سبد خرید </a></li>#}
+{#                                                                            #}
+{#                                                                        </ul>#}
+{#                                                                    </div>#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                        #}
+{#                                    {% endfor %}#}
+                                    <!-- Tab Two End -->
+                                    
+                                </div>
+                                
+                                
+                                {% if is_paginated %}
+                                
+                                <!--  Pagination Area Start -->
+                                <div class="pro-pagination-style text-center mb-60px mt-30px">
+                                    <ul>
+                                    
+{#                                      first page#}
+                                        {% if page_obj.number != 1 and page_obj.previous_page_number != 1 %}
+                                            <li><a href="?page=1">1</a></li>
+                                        {% endif %}
+                                    
+{#                                      previous page #}
+                                        {% if page_obj.has_previous %}
+                                            <li>
+                                                <a class="prev" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                                            </li>
+                                        {% endif %}
+                                    
+{#                                      current page #}
+                                        <li><a class="active" href="#">{{ page_obj.number }}</a></li>
+                                    
+                                    
+{#                                      next page #}
+                                        {% if page_obj.has_next %}
+                                            <li>
+                                                <a class="next" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                                            </li>
+                                        {% endif %}
+                                    
+{#                                      last page #}
+                                        {% if page_obj.number != page_obj.next_page_number and page_obj.next_page_number != page_obj.paginator.num_pages  %}
+                                            <li>
+                                                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                                            </li>
+                                        {% endif %}
+                                            
+                                    
+                                    </ul>
+                                </div>
+                                    
+                            {% endif %}
+                                <!--  Pagination Area End -->
+                            
+                            </div>
+                            <!-- Shop Bottom Area End -->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
 {% endblock %}
 
 
