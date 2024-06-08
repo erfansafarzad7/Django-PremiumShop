@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
 
     'accounts',
     'items',
@@ -92,10 +97,7 @@ WSGI_APPLICATION = 'premium_shop.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 
@@ -149,7 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.User"
 
-# SITE_ID = 2
+# SITE_ID = 1
 #
 # AUTHENTICATION_BACKENDS = [
 #     'django.contrib.auth.backends.ModelBackend',
@@ -182,3 +184,12 @@ LOGOUT_REDIRECT_URL = '/'
 
 # RECAPTCHA_PUBLIC_KEY = '6Ldo4PEpAAAAAFQ-46RoeGKbWcHaRYa4MpS73izb'
 # RECAPTCHA_PRIVATE_KEY = '6Ldo4PEpAAAAALmA1eTgw_14SQ9OdNDpijDlv73-'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'efi.dragon2000@gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = 'vibzlxyhcwlvtmwe'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Erfan s.'

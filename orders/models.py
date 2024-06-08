@@ -7,37 +7,41 @@ import random
 
 
 class Coupon(models.Model):
-    code = models.CharField(max_length=30, unique=True)
-    discount_percent = models.PositiveSmallIntegerField()
+    code = models.CharField(_("تخفیف"), max_length=30, unique=True)
+    discount_percent = models.PositiveSmallIntegerField(_("تخفیف"))
 
-    created_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_date = models.DateTimeField(auto_now=True, null=True, blank=True)
+    created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True, null=True, blank=True)
+    updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.code} - {self.discount_percent}"
 
 
 STATUS_CHOICES = (
-    ('Accepted', 'Accepted'),
-    ('On Pay', 'On Pay'),
-    ('In Progress', 'In Progress'),
-    ('Done', 'Done'),
-    ('Cancelled', 'Cancelled'),
+    ('Accepted', _("تایید شده")),
+    ('On Pay', _("درحال پرداخت")),
+    ('In Progress', _("درحال انجام")),
+    ('Done', _("انجام شده")),
+    ('Cancelled', _("لغو شده")),
 )
 
 
 class Order(models.Model):
-    code = models.CharField(max_length=10, unique=True)
-    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name="user_order")
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Accepted')
-    items = models.ManyToManyField('items.Item', related_name='order_items', blank=True)
+    code = models.CharField(_("کد سفارش"), max_length=10, unique=True)
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name="user_order", verbose_name='کاربر')
+    status = models.CharField(_("وضعیت سفارش"), max_length=15, choices=STATUS_CHOICES, default='Accepted')
+    items = models.ManyToManyField('items.Item', related_name='order_items', blank=True, verbose_name='آیتم ها')
 
-    coupon_used = models.PositiveSmallIntegerField(default=0)
-    must_pay = models.PositiveSmallIntegerField(default=0)
-    paid = models.PositiveSmallIntegerField(default=0)
+    coupon_used = models.PositiveSmallIntegerField(_("درصد کد تخفیف استفاده شده"), default=0)
+    must_pay = models.PositiveSmallIntegerField(_("قابل پرداخت"), default=0)
+    paid = models.PositiveSmallIntegerField(_("مبلغ پرداخت شده"), default=0)
 
-    created_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_date = models.DateTimeField(auto_now=True, null=True, blank=True)
+    created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True, null=True, blank=True)
+    updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
 
     def __str__(self):
         return self.code
@@ -59,12 +63,16 @@ class Order(models.Model):
 
 
 class Cart(models.Model):
-    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE)
-    items = models.ManyToManyField('items.Item', related_name='cart_items', blank=True)
-    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, related_name="cart_coupon", null=True, blank=True)
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, verbose_name='کاربر')
+    items = models.ManyToManyField('items.Item', related_name='cart_items', blank=True, verbose_name='آیتم ها')
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, related_name="cart_coupon", null=True, blank=True, verbose_name='کد تخفیف')
 
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True)
+    updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True)
+
+    class Meta:
+        verbose_name = 'سبد خرید'
+        verbose_name_plural = 'سبد های خرید'
 
     def __str__(self):
         return f'{self.user} - {self.items.count()}'

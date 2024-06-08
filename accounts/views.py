@@ -1,9 +1,10 @@
-from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.views.generic import FormView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserCreationForm, ProfileForm, OTPForm, ForgetPasswordForm
@@ -16,12 +17,8 @@ import string
 
 
 def generate_random_password(length=12):
-    # Create the character pool
     characters = string.ascii_letters + string.digits
-
-    # Generate the password
-    password = ''.join(random.choice(characters) for i in range(length))
-
+    password = ''.join(random.choice(characters) for _ in range(length))
     return password
 
 
@@ -34,8 +31,14 @@ def generate_otp(user):
 def send_otp(user, field):
     code = generate_otp(user)
 
-    match field:
+    match field:                                         # <==================================================
         case 'email':
+            send_mail(
+                "Your Code :",
+                f"hey there, your code is : {code}",
+                "efi.dragon20002gmail.com",
+                [user.email, ]
+            )
             print('send ', code, 'to email ', user.email)
 
         case 'phone_number':
@@ -57,6 +60,12 @@ def update_user(request, session, user_entered_code):
         elif 'set_new_password' in session:
             new_pass = generate_random_password()
             user.set_password(new_pass)
+            send_mail(
+                "Your Code :",
+                f"hey there, your new password is {new_pass}",
+                "efi.dragon20002gmail.com",
+                [session['email'], ]
+            )
             print(new_pass)
         elif ('email' and 'phone_number') in session:
             user.email = session['email']
@@ -71,7 +80,7 @@ def check_delay(request):
     now = datetime.now()
 
     if 'delay' in request.session:
-        str_time = request.session['delay']['time']
+        str_time = request.session['delay']['time']         # use user  last_request  instead  <========================
         last_try = datetime.strptime(str_time, '%Y-%m-%d %H:%M:%S')
     else:
         last_try = now
@@ -94,12 +103,12 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
     """
     form_class = UserCreationForm
     template_name = 'accounts/register.html'
-    success_message = "code was send"
+    success_message = "کد یکبار مصرف ارسال شد!"
     success_url = reverse_lazy('auth:verify')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            messages.info(request, 'you already registered')
+            messages.info(request, 'شما از قبل وارد شده اید..')
             return redirect('shop:home')
         return super().dispatch(request, *args, **kwargs)
 
@@ -136,7 +145,7 @@ class VerifyView(FormView):
             return redirect('auth:profile')
 
         except OTP.DoesNotExist:
-            messages.error(self.request, 'not exists')
+            messages.error(self.request, 'کد مورد نظر موجود نیست!')
 
         return super().form_valid(form)
 
@@ -159,7 +168,6 @@ class UserProfileView(LoginRequiredMixin, DetailView, UpdateView):
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('auth:profile')
     context_object_name = 'user'
-# encode and decode the time
 
     def form_valid(self, form):
         cd = form.cleaned_data
@@ -179,8 +187,8 @@ class UserProfileView(LoginRequiredMixin, DetailView, UpdateView):
                 return redirect('auth:verify')
 
         else:
-            messages.warning(self.request, f"try after {delay[1]}")
-            form.add_error(None, f"try after {delay[1]} ")
+            messages.warning(self.request, f"{delay[1]} ثانیه صبر کنید.. ")
+            form.add_error(None, f"{delay[1]} ثانیه صبر کنید ")
             return self.form_invalid(form)
 
         return super().form_valid(form)
@@ -226,8 +234,8 @@ class ForgetPasswordView(FormView):
             return redirect('auth:verify')
 
         else:
-            messages.warning(self.request, f"try after {delay[1]}")
-            form.add_error(None, f"try after {delay[1]} ")
+            messages.warning(self.request, f"{delay[1]} ثانیه صبر کنید.. ")
+            form.add_error(None, f"{delay[1]} ثانیه صبر کنید.. ")
             return self.form_invalid(form)
 
         return super().form_valid(form)

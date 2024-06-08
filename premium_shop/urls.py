@@ -25,10 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('allauth.urls')),
 
-    path('', include('accounts.urls')),
+    path('auth/', include('accounts.urls')),
     path('', include('items.urls')),
-    path('', include('orders.urls')),
-    path('', include('tickets.urls')),
+    path('order/', include('orders.urls')),
+    path('ticket/', include('tickets.urls')),
 
 ]
 

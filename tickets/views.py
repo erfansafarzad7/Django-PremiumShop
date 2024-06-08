@@ -1,34 +1,26 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, RedirectView
 from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 from .forms import CreateTicketForm
 from .models import Ticket
 
 
-class TicketView(LoginRequiredMixin, FormView):
+class TicketView(LoginRequiredMixin, SuccessMessageMixin, FormView, RedirectView):
     model = Ticket
     form_class = CreateTicketForm
     template_name = 'tickets/send_ticket.html'
     success_url = reverse_lazy('tickets:all')
+    success_message = 'تیکت شما با موفقیت ارسال شد..'
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('tickets:all')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.status = 'Sent'
         form.save()
-        print('succccc')
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
-
-    def post(self, request, *args, **kwargs):
-        print('post')
-        return super().post(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        print('geet')
-        return super().get(request, *args, **kwargs)
 
 
 class MyTicketView(LoginRequiredMixin, ListView):

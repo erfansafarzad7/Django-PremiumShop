@@ -34,14 +34,13 @@ class AddToCartsView(LoginRequiredMixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         item_id = self.kwargs['item_id']
-        item = Item.objects.filter(id__exact=item_id)
+        item = Item.objects.get(id__exact=item_id)
         try:
             cart = Cart.objects.get(user__exact=self.request.user)
-            cart.items.add(item[0].id)
+            cart.items.add(item.id)
             cart.save()
         except Cart.DoesNotExist:
-            print('cart nist')
-
+            messages.error(request, 'آیتم مورد نظر یافت نشد')
         return super().get(self, request, *args, **kwargs)
 
 
@@ -57,7 +56,7 @@ class DeleteCartItemView(LoginRequiredMixin, RedirectView):
             cart.items.remove(item[0].id)
             cart.save()
         except Cart.DoesNotExist:
-            print('cart nist')
+            messages.error(request, 'آیتم مورد نظر یافت نشد')
 
         return super().get(self, request, *args, **kwargs)
 
@@ -71,7 +70,7 @@ class DeleteAllCartsView(LoginRequiredMixin, RedirectView):
             carts = Cart.objects.get(user__exact=self.request.user)
             carts.items.clear()
         except Cart.DoesNotExist:
-            print('cart nist')
+            messages.error(request, 'آیتم مورد نظر یافت نشد')
 
         return super().get(self, request, *args, **kwargs)
 
@@ -86,7 +85,6 @@ class OrdersView(LoginRequiredMixin, ListView):
 
 
 class CreateOrderView(LoginRequiredMixin, RedirectView):
-    # check user is verify and has phone number - create order/default accepted and send to pay
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse('orders:my_orders')
@@ -111,7 +109,7 @@ class CreateOrderView(LoginRequiredMixin, RedirectView):
             cart.save()
 
         else:
-            messages.warning(request, 'verify phone number')
+            messages.warning(request, 'شماره تلفن خود را ثبت کنید..')
             return redirect('auth:profile')
 
         return super().get(self, request, *args, **kwargs)
@@ -127,13 +125,12 @@ class OrderDetailView(DetailView):
         try:
             order = Order.objects.get(code__exact=order_code)
         except Order.DoesNotExist:
-            messages.warning(self.request, 'سفارش موجود نیست')
+            messages.warning(self.request, 'سفارشی یافت نشد..')
             return redirect('orders:my_orders')
         return order
 
 
 class CancelOrderView(LoginRequiredMixin, RedirectView):
-    # get order id and set to cancelled redirect to user profile
     def get_redirect_url(self, *args, **kwargs):
         return reverse('orders:my_orders')
 
@@ -144,14 +141,22 @@ class CancelOrderView(LoginRequiredMixin, RedirectView):
             order.status = 'Cancelled'
             order.save()
         except Order.DoesNotExist:
-            messages.warning(request, 'order not found')
+            messages.warning(request, 'سفارشی یافت نشد..')
             return redirect('auth:profile')
 
         return super().get(self, request, *args, **kwargs)
 
 
 class PayOrderView(LoginRequiredMixin, TemplateView):
-    # get order id and set to /Paid/->/in_progress/ set paid value to -> /calculate_total_price_with_coupon/   redirect to user profile
-    template_name = 'orders/order_pay.html'
+    template_name = 'orders/thank-you-page.html'
+
+    def get(self, request, *args, **kwargs):
+        order_code = self.kwargs['order_code']
+        order = Order.objects.get(code__exact=order_code)
+        order.status = 'Paid'
+        order.paid = order.must_pay
+        order.must_pay = 0
+        order.save()
+        return super().get(request, *args, **kwargs)
 
 

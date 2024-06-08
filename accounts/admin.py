@@ -1,18 +1,20 @@
 from django.contrib import admin
 from django.contrib.sessions.models import Session
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
 from .models import User, OTP
 from .forms import UserCreationForm, UserChangeForm
 
 
-class SessionAdmin(admin.ModelAdmin):
-    def _session_data(self, obj):
-        return obj.get_decoded()
-    list_display = ['session_key', '_session_data', 'expire_date']
-    readonly_fields = ['_session_data']
+# class SessionAdmin(admin.ModelAdmin):
+#     def _session_data(self, obj):
+#         return obj.get_decoded()
+#     list_display = ['session_key', '_session_data', 'expire_date']
+#     readonly_fields = ['_session_data']
 
 
-admin.site.register(Session, SessionAdmin)
+# admin.site.register(Session, SessionAdmin)
+admin.site.unregister(Group)
 
 
 @admin.action(description="Mark selected users as verify")
@@ -28,7 +30,7 @@ class CustomUserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
 
-    list_display = ("id", "email", "phone_number", "username", "is_verified", "is_superuser", "is_active")
+    list_display = ("email", "phone_number", "username", "is_verified", "is_superuser", "is_active")
     list_filter = ("is_superuser", "is_active", "is_verified")
     searching_fields = ("email", "phone_number", "username")
     actions = ('make_verify', )
@@ -53,7 +55,7 @@ class CustomUserAdmin(BaseUserAdmin):
         (
             "group permissions",
             {
-                "fields": ("groups", "user_permissions", ),
+                "fields": ("user_permissions", ),
             },
         ),
         (

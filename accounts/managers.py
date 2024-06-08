@@ -14,11 +14,11 @@ class UserManager(BaseUserManager):
         Create and save a User with the given email and password.
         """
         if not email:
-            raise ValueError(_("Email Is Required"))
+            raise ValueError(_("ایمیل را وارد کنید.."))
         if not phone_number:
-            raise ValueError("Phone Number Is Required")
+            raise ValueError("شماره تلفن خود را وارد کنید..")
         if not phone_number_validation(phone_number):
-            raise ValueError("Enter Your Phone Number Like : 09123456789")
+            raise ValueError("شماره تلفن خود را به صورت : 09123456789 وارد کنید")
 
         email = self.normalize_email(email)
         user = self.model(email=email, phone_number=phone_number)
