@@ -14,33 +14,6 @@
 
 {% block content %}
     
-
-    -------------------------
-    code : {{ order.code }}
-    status : {{ order.status }}
-    {% for cart in order.items.all %}
-        <div>
-        ---------
-        {{ cart.title }} - {{ cart.discounted_price }}
-        ---------
-        </div>
-    {% endfor %}
-    {{ order.calculate_total_price }}
-    --------------------------
-
-    {% if order.status != 'Done' or order.status != 'Cancelled'%}
-                <a href="{% url 'orders:cancel_order' order.code %}">cancel</a>
-    {% endif %}
-    
-    {% if order.status == 'On Pay' %}
-        <a href="{% url 'orders:pay_order' order.code %}">pay</a>
-    {% endif %}
-    
-    
-    
-    
-    
-    
     
     
     
@@ -113,9 +86,9 @@
                                         
                                             <th>وضعیت</th>
                                         
-                                            {% if order.status == 'Done' %}
+                                            {% if order.status == 'انجام شده' %}
                                             <th>قیمت کل</th>
-                                            {% elif order.status == 'On Pay' %}
+                                            {% elif order.status == 'درحال پرداخت' %}
                                             <th>مبلغ قابل پرداخت</th>
                                             {% else %}
                                             <th>مبلغ</th>
@@ -136,7 +109,7 @@
                                             <td class="product-name"><a href="{% url 'orders:order_detail' order.code %}" style="color: #146cda;">{{ order.code }}</a></td>
                                             <td class="product-price-cart"><span class="amount">{{ order.status }}</span></td>
                                             
-                                        {% if order.status == 'On Pay' %}
+                                        {% if order.status == 'درحال پرداخت' %}
                                             <td class="product-price-cart"><span class="amount">{{ order.must_pay }} تومان </span></td>
                                         {% else %}
                                             <td class="product-price-cart"><span class="amount">{{ order.paid }} تومان </span></td>
@@ -163,7 +136,7 @@
 {#                                                <a href="{% url 'orders:delete_all_carts' %}">پرداخت</a>#}
 {#                                            </div>#}
                                         
-                                            {% if order.status == 'On Pay' %}
+                                            {% if order.status == 'درحال پرداخت' %}
                                             <div class="cart-clear">
 {#                                                <button>بروزرسانی سبد خرید</button>#}
                                                 <a href="{% url 'orders:pay_order' order.code %}">پرداخت</a>
