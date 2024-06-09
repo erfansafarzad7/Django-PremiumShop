@@ -19,8 +19,8 @@ class Item(models.Model):
     title = models.CharField(_("عنوان"), max_length=150, unique=True)
     description = models.TextField(_("توضیحات"), )
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category', verbose_name="دسته بندی")
-    price = models.PositiveSmallIntegerField(_("قیمت"), )
-    discount = models.PositiveSmallIntegerField(_("درصد تخفیف"), )
+    price = models.PositiveIntegerField(_("قیمت"), )
+    discount = models.PositiveSmallIntegerField(_("درصد تخفیف"))
 
     created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True)
     updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True)

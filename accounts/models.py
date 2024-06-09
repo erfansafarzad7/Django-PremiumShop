@@ -39,6 +39,10 @@ class OTP(models.Model):
     code = models.CharField(_("کد یکبار مصرف"), max_length=5, unique=True)
     created_date = models.DateTimeField(_("تاریخ تولید"), auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'کد یکبار مصرف'
+        verbose_name_plural = 'کد های یکبار مصرف'
+
     def __str__(self):
         return f'{self.user.email} - {self.user.phone_number} - {self.code}'
 

@@ -24,28 +24,28 @@
             <div class="hero-slider swiper-container">
                 <div class="swiper-wrapper">
                     <!-- Single Slider  -->
-                    <div class="swiper-slide bg-img d-flex" style="background-image: url({% static 'images/slider-image/sample-5.jpg' %});">
+                    <div class="swiper-slide bg-img d-flex" style="background-image: url({% static 'images/slider-image/banner 2.jpg' %});">
                         <div class="container align-self-center">
                             <div class="slider-content-1 slider-animated-1 text-start pl-60px">
-                                <span class="animated color-gray">محصول جدید</span>
+                                <span class="animated color-gray">پرفروش ترین آیتم</span>
                                 <h1 class="animated color-black">
-                                    عنوان محصول فروشگاه <br />
-                                    <strong>جزئیات محصول</strong>
+                                    خرید اکانت پرمیوم اسپاتیفای<br />
+                                    <strong>کمتر از 5 دقیقه..</strong>
                                 </h1>
-                                <a href="shop-4-column.html" class="shop-btn animated">اکنون خرید کنید</a>
+                                <a href="{% url 'shop:category_filter' "اسپاتیفای"%}" class="shop-btn animated">اکنون خرید کنید</a>
                             </div>
                         </div>
                     </div>
                     <!-- Single Slider  -->
-                    <div class="swiper-slide bg-img d-flex" style="background-image: url({%  static 'images/slider-image/sample-6.jpg' %});">
+                    <div class="swiper-slide bg-img d-flex" style="background-image: url({%  static 'images/slider-image/banner 1.jpg' %});">
                         <div class="container align-self-center">
                             <div class="slider-content-1 slider-animated-1 text-start pl-60px">
-                                <span class="animated color-gray">محصول جدید</span>
+                                <span class="animated color-gray">بدون محدودیت فیلم ببین</span>
                                 <h1 class="animated color-black">
-                                    عنوان محصول فروشگاه <br />
-                                    <strong>جزئیات محصول</strong>
+                                    خرید اکانت پرمیوم یوتیوب <br />
+                                    <strong>کمتر از 5 دقیقه..</strong>
                                 </h1>
-                                <a href="shop-4-column.html" class="shop-btn animated">اکنون خرید کنید</a>
+                                <a href="{% url 'shop:category_filter' "نتفلیکس"%}" class="shop-btn animated">اکنون خرید کنید</a>
                             </div>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
                             <div class="single-static">
                                 <img src="{% static 'images/icons/static-icons-1.png'%}" alt="" class="img-responsive" />
                                 <div class="single-static-meta">
-                                    <h4>ارسال رایگان</h4>
-                                    <p>لورم ایپسوم متن ساختگی با سادگی</p>
+                                    <h4>هزینه سفارش رایگان</h4>
+                                    <p>بدون هزینه ی اضافی اکانت خود را دریافت کنید</p>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 <img src="{% static 'images/icons/static-icons-2.png'%}" alt="" class="img-responsive" />
                                 <div class="single-static-meta">
                                     <h4>ضمانت مرجوعی</h4>
-                                    <p>لورم ایپسوم متن ساختگی با سادگی</p>
+                                    <p>امکان عودت وجه تا 3 روز</p>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <img src="{% static 'images/icons/static-icons-3.png'%}" alt="" class="img-responsive" />
                                 <div class="single-static-meta">
                                     <h4>پرداخت امن</h4>
-                                    <p>لورم ایپسوم متن ساختگی با سادگی</p>
+                                    <p>با درگاه های پرداخت زرینپال و..</p>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 <img src="{% static 'images/icons/static-icons-4.png'%}" alt="" class="img-responsive" />
                                 <div class="single-static-meta">
                                     <h4>پشتیبانی سریع</h4>
-                                    <p>لورم ایپسوم متن ساختگی با سادگی</p>
+                                    <p>پاسخگویی 24 ساعت شبانه روز / 7 روز هفته</p>
                                 </div>
                             </div>
                         </div>
@@ -128,19 +128,19 @@
                     
                     <div class="col-md-4 col-xs-12">
                         <div class="banner-wrapper">
-                            <a href="shop-4-column.html"><img src="{% static 'images/banner-image/1.jpg' %}" alt="" /></a>
+                            <a href="{% url 'shop:category_filter' "اسپاتیفای"%}"><img src="{% static 'images/banner-image/1.jpg' %}" alt="" /></a>
                         </div>
                     </div>
                     
                     <div class="col-md-4 col-xs-12">
                         <div class="banner-wrapper">
-                            <a href="shop-4-column.html"><img src="{% static 'images/banner-image/2.jpg' %}" alt="" /></a>
+                            <a href="{% url 'shop:category_filter' "دیسکورد"%}"><img src="{% static 'images/banner-image/3.jpg' %}" alt="" /></a>
                         </div>
                     </div>
                     
                     <div class="col-md-4 col-xs-12">
                         <div class="banner-wrapper">
-                            <a href="shop-4-column.html"><img src="{% static 'images/banner-image/3.jpg' %}" alt="" /></a>
+                            <a href="{% url 'shop:category_filter' "ساندکلود"%}"><img src="{% static 'images/banner-image/5.jpg' %}" alt="" /></a>
                         </div>
                     </div>
                     
@@ -205,22 +205,22 @@
     
         
         <!-- Banner Area Start -->
-        <div class="banner-area mt-30px mb-30px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <div class="banner-wrapper">
-                            <a href="shop-4-column.html"><img src="{% static 'images/banner-image/7.jpg' %}" alt="" /></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-12">
-                        <div class="banner-wrapper">
-                            <a href="shop-4-column.html"><img src="{% static 'images/banner-image/8.jpg' %}" alt="" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{#        <div class="banner-area mt-30px mb-30px">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6 col-xs-12">#}
+{#                        <div class="banner-wrapper">#}
+{#                            <a href="{% url 'shop:category_filter' "دسته بندی 1"%}"><img src="{% static 'images/banner-image/7.jpg' %}" alt="" /></a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-6 col-xs-12">#}
+{#                        <div class="banner-wrapper">#}
+{#                            <a href="{% url 'shop:category_filter' "دسته بندی 2"%}"><img src="{% static 'images/banner-image/9.jpg' %}" alt="" /></a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <!-- Banner Area End -->
         
     
@@ -247,7 +247,7 @@
                         <div class="feature-slider-item swiper-slide">
                             <article class="list-product">
                                 <div class="img-block">
-                                    <a href="single-product.html" class="thumbnail">
+                                    <a href="{% url 'shop:detail' item.title %}" class="thumbnail">
                                         <img class="first-img" src="{{ item.image.url }}" alt="" />
                                         <img class="second-img" src="{{ item.image.url }}" alt="" />
                                     </a>
@@ -261,8 +261,8 @@
                                     <li class="new">جدید</li>
                                 </ul>
                                 <div class="product-decs">
-                                    <a class="inner-link" href="shop-4-column.html"><span>{{ item.title }}</span></a>
-                                    <h2><a href="single-product.html" class="product-link">{{ item.description|slice:20 }}...</a></h2>
+                                    <a class="inner-link" href="{% url 'shop:detail' item.title %}"><span>{{ item.title }}</span></a>
+                                    <h2><a href="{% url 'shop:detail' item.title %}" class="product-link">{{ item.description|slice:20 }}...</a></h2>
 {#                                    <div class="rating-product">#}
 {#                                        <i class="ion-android-star"></i>#}
 {#                                        <i class="ion-android-star"></i>#}
@@ -333,7 +333,7 @@
                             <div class="recent-slider-item swiper-slide">
                                 <article class="list-product">
                                     <div class="img-block">
-                                        <a href="single-product.html" class="thumbnail">
+                                        <a href="{% url 'shop:detail' item.title %}" class="thumbnail">
                                         <img class="first-img" src="{{ item.image.url }}" alt="" />
 
                                         <img class="second-img" src="{{ item.image.url }}" alt="" />
@@ -346,8 +346,8 @@
                                         </div>
                                     </div>
                                     <div class="product-decs"> 
-                                        <a class="inner-link" href="shop-4-column.html"><span>{{ item.title }}</span></a>
-                                        <h2><a href="single-product.html" class="product-link">{{ item.description|slice:20 }}...</a></h2>
+                                        <a class="inner-link" href="{% url 'shop:detail' item.title %}"><span>{{ item.title }}</span></a>
+                                        <h2><a href="{% url 'shop:detail' item.title %}" class="product-link">{{ item.description|slice:20 }}...</a></h2>
 {#                                        <div class="rating-product">#}
 {#                                            <i class="ion-android-star"></i>#}
 {#                                            <i class="ion-android-star"></i>#}
@@ -384,39 +384,39 @@
     
     
             <!-- Brand area start -->
-            <div class="brand-area mt-30px mb-60px">
-                <div class="container">
-                    <div class="brand-slider slider-nav-style-1  slider-nav-style-2">
-                        <div class="brand-slider-wrapper swiper-wrapper">
-                            
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/2.jpg' %}" alt="" /></a>
-                            </div>
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/3.jpg' %}" alt="" /></a>
-                            </div>
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/4.jpg' %}" alt="" /></a>
-                            </div>
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/5.jpg' %}" alt="" /></a>
-                            </div>
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/1.jpg' %}" alt="" /></a>
-                            </div>
-                            <div class="brand-slider-item swiper-slide">
-                                <a href=""><img src="{% static 'images/product-image/2.jpg' %}" alt="" /></a>
-                            </div>
-                            
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-buttons">
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{#            <div class="brand-area mt-30px mb-60px">#}
+{#                <div class="container">#}
+{#                    <div class="brand-slider slider-nav-style-1  slider-nav-style-2">#}
+{#                        <div class="brand-slider-wrapper swiper-wrapper">#}
+{#                            #}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/2.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/3.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/4.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/5.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/1.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            <div class="brand-slider-item swiper-slide">#}
+{#                                <a href=""><img src="{% static 'images/product-image/2.jpg' %}" alt="" /></a>#}
+{#                            </div>#}
+{#                            #}
+{#                        </div>#}
+{#                        <!-- Add Arrows -->#}
+{#                        <div class="swiper-buttons">#}
+{#                            <div class="swiper-button-next"></div>#}
+{#                            <div class="swiper-button-prev"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
             <!-- Brand area end -->   
         
         

@@ -98,7 +98,9 @@ class CreateOrderView(LoginRequiredMixin, RedirectView):
             order = Order.objects.create(code=random_code, user=user, status='On Pay')
 
             order.must_pay = cart.calculate_total_price_with_coupon
-            order.coupon_used = cart.coupon.discount_percent
+
+            if cart.coupon:
+                order.coupon_used = cart.coupon.discount_percent
 
             for i in cart.items.all():
                 order.items.add(i.id)

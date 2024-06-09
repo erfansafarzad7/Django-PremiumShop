@@ -13,6 +13,10 @@ class Coupon(models.Model):
     created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True, null=True, blank=True)
     updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True, null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'کد تخفیف'
+        verbose_name_plural = 'کد های تخفیف'
+
     def __str__(self):
         return f"{self.code} - {self.discount_percent}"
 
@@ -33,8 +37,8 @@ class Order(models.Model):
     items = models.ManyToManyField('items.Item', related_name='order_items', blank=True, verbose_name='آیتم ها')
 
     coupon_used = models.PositiveSmallIntegerField(_("درصد کد تخفیف استفاده شده"), default=0)
-    must_pay = models.PositiveSmallIntegerField(_("قابل پرداخت"), default=0)
-    paid = models.PositiveSmallIntegerField(_("مبلغ پرداخت شده"), default=0)
+    must_pay = models.PositiveIntegerField(_("قابل پرداخت"), default=0)
+    paid = models.PositiveIntegerField(_("مبلغ پرداخت شده"), default=0)
 
     created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True, null=True, blank=True)
     updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True, null=True, blank=True)
