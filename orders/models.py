@@ -104,7 +104,7 @@ class Cart(models.Model):
         total = 0
         for item in self.items.all():
             total += item.discount
-        return int(total)
+        return int(total / self.items.count())
 
     @property
     def calculate_total_price_with_coupon(self):
