@@ -33,7 +33,7 @@ STATUS_CHOICES = (
 class Order(models.Model):
     code = models.CharField(_("کد سفارش"), max_length=10, unique=True)
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name="user_order", verbose_name='کاربر')
-    status = models.CharField(_("وضعیت سفارش"), max_length=15, choices=STATUS_CHOICES, default='Accepted')
+    status = models.CharField(_("وضعیت سفارش"), max_length=15, choices=STATUS_CHOICES, default='تایید شده')
     items = models.ManyToManyField('items.Item', related_name='order_items', blank=True, verbose_name='آیتم ها')
 
     coupon_used = models.PositiveSmallIntegerField(_("درصد کد تخفیف استفاده شده"), default=0)
