@@ -95,7 +95,7 @@ class CreateOrderView(LoginRequiredMixin, RedirectView):
 
         if user.is_verified and user.phone_number:
             random_code = str(random.randint(1000000000, 9999999999))
-            order = Order.objects.create(code=random_code, user=user, status='On Pay')
+            order = Order.objects.create(code=random_code, user=user, status='درحال پرداخت')
 
             order.must_pay = cart.calculate_total_price_with_coupon
 
@@ -140,7 +140,7 @@ class CancelOrderView(LoginRequiredMixin, RedirectView):
         order_code = self.kwargs['order_code']
         try:
             order = Order.objects.get(code__exact=order_code)
-            order.status = 'Cancelled'
+            order.status = 'لغو شده'
             order.save()
         except Order.DoesNotExist:
             messages.warning(request, 'سفارشی یافت نشد..')
@@ -155,7 +155,7 @@ class PayOrderView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         order_code = self.kwargs['order_code']
         order = Order.objects.get(code__exact=order_code)
-        order.status = 'Paid'
+        order.status = 'درحال انجام'
         order.paid = order.must_pay
         order.must_pay = 0
         order.save()

@@ -1,4 +1,8 @@
 {
+  "django": {
+      "pythonVersion": "3.12"
+    },
+
   "disks": [
     {
       "name": "media",

@@ -59,8 +59,8 @@ def create_profile(sender, instance, created, **kwargs):
             print(random_code)
         if instance.email:
             send_mail(
-                "Your Code :",
-                f"hey there, your code is : {random_code}",
+                "کد شما :",
+                f"سلام . کد شما برای ورود به سایت : {random_code}",
                 "efi.dragon20002gmail.com",
                 [instance.email, ]
             )

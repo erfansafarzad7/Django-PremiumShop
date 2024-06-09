@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.core.mail import send_mail
 from items.models import Item
 import random
 
@@ -56,6 +57,26 @@ class Order(models.Model):
         for item in self.items.all():
             total += item.discounted_price
         return int(total)
+
+
+@receiver(post_save, sender=Order)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        send_mail(
+            "New Order :",
+            f"{instance.user.email} - {instance.code}",
+            "efi.dragon20002gmail.com",
+            ["erfansafarzad7@gmail.com", ] # send email to admin
+        )
+    else:
+        instance.status = 'Answered'
+        send_mail(
+            f"تیکت شما به {instance.status} تغییر پیدا کرد :",
+            f"سفارش شما با کد ' {instance.code} ' به ' {instance.status} ' تغییر پیدا کرد. ",
+            "efi.dragon20002gmail.com",
+            [instance.user.email, ] # send email to user
+        )
+
 
 # class CartItem(models.Model):
 #     item = models.ForeignKey('items.Item', on_delete=models.CASCADE)

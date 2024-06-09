@@ -34,8 +34,8 @@ def send_otp(user, field):
     match field:                                         # <==================================================
         case 'email':
             send_mail(
-                "Your Code :",
-                f"hey there, your code is : {code}",
+                "کد شما :",
+                f"سلام . کد شما برای ورود به سایت : {code}",
                 "efi.dragon20002gmail.com",
                 [user.email, ]
             )
@@ -61,8 +61,8 @@ def update_user(request, session, user_entered_code):
             new_pass = generate_random_password()
             user.set_password(new_pass)
             send_mail(
-                "Your Code :",
-                f"hey there, your new password is {new_pass}",
+                "رمز ورود شما تغییر کرد :",
+                f"رمز عبور شما به ' {new_pass} ' تغییر پیدا کرد .",
                 "efi.dragon20002gmail.com",
                 [session['email'], ]
             )
