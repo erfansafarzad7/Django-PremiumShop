@@ -18,7 +18,7 @@ class TicketView(LoginRequiredMixin, SuccessMessageMixin, FormView, RedirectView
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.status = 'Sent'
+        form.instance.status = 'ارسال شد'
         form.save()
         return super().form_valid(form)
 
