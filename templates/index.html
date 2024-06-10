@@ -63,58 +63,58 @@
     
     
         <!-- Static Area Start -->
-        <div class="static-area mtb-60px">
-            <div class="container">
-                <div class="static-area-wrap">
-                    <div class="row">
-                        <!-- Static Single Item Start -->
-                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
-                            <div class="single-static">
-                                <img src="{% static 'images/icons/static-icons-1.png'%}" alt="" class="img-responsive" />
-                                <div class="single-static-meta">
-                                    <h4>هزینه سفارش رایگان</h4>
-                                    <p>بدون هزینه ی اضافی اکانت خود را دریافت کنید</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Static Single Item End -->
-                        <!-- Static Single Item Start -->
-                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">
-                            <div class="single-static">
-                                <img src="{% static 'images/icons/static-icons-2.png'%}" alt="" class="img-responsive" />
-                                <div class="single-static-meta">
-                                    <h4>ضمانت مرجوعی</h4>
-                                    <p>امکان عودت وجه تا 3 روز</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Static Single Item End -->
-                        <!-- Static Single Item Start -->
-                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-sm-30px">
-                            <div class="single-static">
-                                <img src="{% static 'images/icons/static-icons-3.png'%}" alt="" class="img-responsive" />
-                                <div class="single-static-meta">
-                                    <h4>پرداخت امن</h4>
-                                    <p>با درگاه های پرداخت زرینپال و..</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Static Single Item End -->
-                        <!-- Static Single Item Start -->
-                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">
-                            <div class="single-static">
-                                <img src="{% static 'images/icons/static-icons-4.png'%}" alt="" class="img-responsive" />
-                                <div class="single-static-meta">
-                                    <h4>پشتیبانی سریع</h4>
-                                    <p>پاسخگویی 24 ساعت شبانه روز / 7 روز هفته</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Static Single Item End -->
-                    </div>
-                </div>
-            </div>
-        </div>
+{#        <div class="static-area mtb-60px">#}
+{#            <div class="container">#}
+{#                <div class="static-area-wrap">#}
+{#                    <div class="row">#}
+{#                        <!-- Static Single Item Start -->#}
+{#                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">#}
+{#                            <div class="single-static">#}
+{#                                <img src="{% static 'images/icons/static-icons-1.png'%}" alt="" class="img-responsive" />#}
+{#                                <div class="single-static-meta">#}
+{#                                    <h4>هزینه سفارش رایگان</h4>#}
+{#                                    <p>بدون هزینه ی اضافی اکانت خود را دریافت کنید</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- Static Single Item End -->#}
+{#                        <!-- Static Single Item Start -->#}
+{#                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-md-30px mb-lm-30px">#}
+{#                            <div class="single-static">#}
+{#                                <img src="{% static 'images/icons/static-icons-2.png'%}" alt="" class="img-responsive" />#}
+{#                                <div class="single-static-meta">#}
+{#                                    <h4>ضمانت مرجوعی</h4>#}
+{#                                    <p>امکان عودت وجه تا 3 روز</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- Static Single Item End -->#}
+{#                        <!-- Static Single Item Start -->#}
+{#                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6 mb-sm-30px">#}
+{#                            <div class="single-static">#}
+{#                                <img src="{% static 'images/icons/static-icons-3.png'%}" alt="" class="img-responsive" />#}
+{#                                <div class="single-static-meta">#}
+{#                                    <h4>پرداخت امن</h4>#}
+{#                                    <p>با درگاه های پرداخت زرینپال و..</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- Static Single Item End -->#}
+{#                        <!-- Static Single Item Start -->#}
+{#                        <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">#}
+{#                            <div class="single-static">#}
+{#                                <img src="{% static 'images/icons/static-icons-4.png'%}" alt="" class="img-responsive" />#}
+{#                                <div class="single-static-meta">#}
+{#                                    <h4>پشتیبانی سریع</h4>#}
+{#                                    <p>پاسخگویی 24 ساعت شبانه روز / 7 روز هفته</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- Static Single Item End -->#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
         <!-- Static Area End -->
     
     
@@ -243,7 +243,7 @@
                     <div class="feature-slider-wrapper swiper-wrapper">
                         <!-- Single Item -->
                     
-                            {%  for item in new_items %}
+                            {%  for item in special_items %}
                         <div class="feature-slider-item swiper-slide">
                             <article class="list-product">
                                 <div class="img-block">
@@ -328,7 +328,7 @@
                     <div class="recent-slider slider-nav-style-1 multi-row-2">
                         <div class="recent-slider-wrapper swiper-wrapper">
                             
-                            {% for item in special_items %}
+                            {% for item in new_items %}
                             
                             <div class="recent-slider-item swiper-slide">
                                 <article class="list-product">

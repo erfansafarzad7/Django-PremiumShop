@@ -17,10 +17,10 @@ class ItemsView(FormView, ListView):
     model = Item
     template_name = 'items/all_items.html'
     context_object_name = 'items'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
-        items = Item.objects.all()
+        items = Item.objects.all().order_by('-created_date')
         if q := self.request.GET.get('q'):
             return items.filter(title__contains=q)
         return items
@@ -31,11 +31,11 @@ class CategoryFilterView(FormView, ListView):
     model = Item
     template_name = 'items/all_items.html'
     context_object_name = 'items'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         title = self.kwargs.get('title')
-        items = Item.objects.filter(category__title__contains=title)
+        items = Item.objects.filter(category__title__contains=title).order_by('-created_date')
         return items
 
 

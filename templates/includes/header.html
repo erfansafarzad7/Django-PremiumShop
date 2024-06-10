@@ -35,6 +35,9 @@
                 <div class="col-lg-9 custom-col-2">
                     <div class="header-horizontal-menu">
                         <ul class="menu-content">
+                        
+                            <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
+                        
                             <li class="active menu-dropdown">
                                 <a href="#"> دسته بندی</a>
                                 <ul class="main-sub-menu">
@@ -43,19 +46,19 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            {% if request.user.is_authenticated %}
-                            <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
-                            {% else %}
-                            <li><a href="{% url 'auth:login' %}">ورود</a></li>
-                            {% endif %}
                         
-                            <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
                         
                             <li><a href="{% url 'orders:my_carts' %}">سبد خرید</a></li>
                         
                             <li><a href="{% url 'orders:my_orders' %}">سفارشات</a></li>
                         
                             <li><a href="{% url 'tickets:all' %}">پشتیبانی</a></li>
+                        
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
+                            {% else %}
+                            <li><a href="{% url 'auth:login' %}">ورود</a></li>
+                            {% endif %}
                         
                             {% if request.user.is_authenticated %}
                                 <form action="{% url 'auth:logout' %}" method="post">
@@ -146,6 +149,7 @@
         </div>
         <div class="offcanvas-menu">
             <ul>  
+            
                 <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
             
             
@@ -160,18 +164,20 @@
                     </ul>                             
                 </li>  
             
-                {% if request.user.is_authenticated %}
-                <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
-                {% else %}
-                <li><a href="{% url 'auth:login' %}">ورود</a></li>
-                {% endif %}
-            
             
                 <li><a href="{% url 'orders:my_carts' %}">سبد خرید</a></li>
             
                 <li><a href="{% url 'orders:my_orders' %}">سفارشات</a></li>
             
                 <li><a href="{% url 'tickets:all' %}">پشتیبانی</a></li>
+            
+            
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
+                {% else %}
+                <li><a href="{% url 'auth:login' %}">ورود</a></li>
+                {% endif %}
+            
             
                 {% if request.user.is_authenticated %}
                     <form action="{% url 'auth:logout' %}" method="post">
