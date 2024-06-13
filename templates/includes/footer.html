@@ -12,7 +12,7 @@
                                             تماس با ما :
                                             <span class="tm-ltr">
                                                 0903 139 7469 <br />
-                                                0992 097 0954
+                                                0937 864 9616
                                             </span>
                                         </p>
                                     </div>
@@ -54,8 +54,13 @@
                                             <li><a href="#">تخفیفات</a></li>
                                             <li><a href="#">محصولات جدید</a></li>
                                             <li><a href="#">پرفروش ترین ها</a></li>
-                                            <li><a href="#">ورود</a></li>
-                                            <li><a href="#">حساب من</a></li>
+                                            
+                                            {% if request.user.is_authenticated %}
+                                            <li><a href="{% url 'auth:profile' %}">پروفایل</a></li>
+                                            {% else %}
+                                            <li><a href="{% url 'auth:login' %}">ورود</a></li>
+                                            {% endif %}
+            
                                         </ul>
                                     </div>
                                 </div>
@@ -65,16 +70,13 @@
                                     <div class="social-info">
                                         <ul>
                                             <li>
-                                                <a href="#"><i class="icon-social-facebook"></i></a>
+                                                <a href="mailto:taygasshop@gmail.com"><i class="fab fa-google"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#"><i class="icon-social-twitter"></i></a>
+                                                <a href="https://t.me/TaygasShop"><i class="fab fa-telegram"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#"><i class="icon-social-instagram"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon-social-google"></i></a>
+                                                <a href="https://www.instagram.com/taygasshop/"><i class="fab fa-instagram"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -91,7 +93,7 @@
 {#								<p class="copy-text">فارسی و <b>راست چین</b> شده</p>#}
                             </div>
                             <div class="col-md-6 text-end">
-                                <img class="payment-img" src="assets/images/icons/payment.png" alt="" />
+{#                                <img class="payment-img" src="{% static 'images/icons/payment.png' %}" alt="" />#}
                             </div>
                         </div>
                     </div>

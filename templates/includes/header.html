@@ -1,5 +1,7 @@
 {% load static %}
 
+        <p class="alert alert-warning"> در صورت نیاز به هرگونه راهنمایی از طریق تیکت یا راه های دیگر با ما تماس برقرار کنید. ( ساعت کاری 10صبح-10شب ) </p>
+
 <header class="header-wrapper">
     <div class="header-top bg-white ptb-30px d-xl-block d-none">
         <div class="container">
@@ -37,6 +39,8 @@
                         <ul class="menu-content">
                         
                             <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
+                        
+                            <li><a href="{% url 'shop:all_items' %}">همه محصولات</a></li>
                         
                             <li class="active menu-dropdown">
                                 <a href="#"> دسته بندی</a>
@@ -152,6 +156,8 @@
             
                 <li><a href="{% url 'shop:home' %}">صفحه اصلی</a></li>
             
+                <li><a href="{% url 'shop:all_items' %}">همه محصولات</a></li>
+            
             
                 <li>
                     <a href="#"><span class="menu-text">دسته بندی</span></a> 
@@ -192,16 +198,13 @@
         <div class="offcanvas-social mt-30px">
             <ul>
                 <li>
-                    <a href="#"><i class="icon-social-facebook"></i></a>
+                    <a href="mailto:taygasshop@gmail.com"><i class="fab fa-google"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon-social-twitter"></i></a>
+                    <a href="https://t.me/TaygasShop"><i class="fab fa-telegram"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="icon-social-google"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="icon-social-instagram"></i></a>
+                    <a href="https://www.instagram.com/taygasshop/"><i class="fab fa-instagram"></i></a>
                 </li>
             </ul>
         </div>
