@@ -87,8 +87,6 @@ class CustomUserAdmin(BaseUserAdmin):
 
 @admin.register(OTP)
 class OTPAdmin(admin.ModelAdmin):
-    """
-    """
     list_display = ("user_email", "user_phone_number", "code", "created_date")
     list_filter = ("created_date", )
     search_fields = ("user__email", "user__phone_number", "code")

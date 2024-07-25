@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -11,7 +13,12 @@ class CouponForm(forms.Form):
         coupon_code = self.cleaned_data['code']
 
         try:
-            Coupon.objects.get(code__exact=coupon_code)
+            coupon = Coupon.objects.get(code__exact=coupon_code)
+
+            if c := coupon.coupon_validity_time:
+                if c < datetime.datetime.now():
+                    raise ValidationError('کد تخفیف منقضی شده است!')
+
         except Coupon.DoesNotExist:
             raise ValidationError('کد تخفیف اشتباه است!')
 

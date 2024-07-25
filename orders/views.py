@@ -101,6 +101,8 @@ class CreateOrderView(LoginRequiredMixin, RedirectView):
 
             if cart.coupon:
                 order.coupon_used = cart.coupon.discount_percent
+                if cart.coupon.coupon_type == 'یکبار مصرف':
+                    del cart.coupon
 
             for i in cart.items.all():
                 order.items.add(i.id)

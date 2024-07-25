@@ -5,14 +5,14 @@ from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 
 
-STATUS_CHOICES = (
-    ('ارسال شد', 'ارسال شد'),
-    ('پاسخ داده شد', 'پاسخ داده شد'),
-)
-
-
 class Ticket(models.Model):
-    status = models.CharField(_("وضعیت"), max_length=10, choices=STATUS_CHOICES, default='ارسال شد')
+    STATUS_CHOICES = (
+        ('ارسال شد', _('ارسال شد')),
+        ('پاسخ داده شد', _('پاسخ داده شد')),
+    )
+
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='ticket_parent')
+    status = models.CharField(_("وضعیت"), max_length=15, choices=STATUS_CHOICES, default='ارسال شد')
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='user_ticket', verbose_name="کابر")
     subject = models.CharField(_("موضوع"), max_length=30)
     text = models.TextField(_("متن"), )

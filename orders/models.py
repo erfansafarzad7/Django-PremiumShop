@@ -8,8 +8,16 @@ import random
 
 
 class Coupon(models.Model):
+    COUPON_TYPE = (
+        ('یکبار مصرف', _('یکبار مصرف')),
+        ('مدت دار', _('مدت دار')),
+        ('دائمی', _('دائمی')),
+    )
+
     code = models.CharField(_("تخفیف"), max_length=30, unique=True)
     discount_percent = models.PositiveSmallIntegerField(_("تخفیف"))
+    coupon_type = models.CharField(_("نوع تخفیف"), max_length=20, choices=COUPON_TYPE)
+    coupon_validity_time = models.TimeField(_("مدت زمان اعتبار"), null=True, blank=True)
 
     created_date = models.DateTimeField(_("تاریخ ایجاد"), auto_now_add=True, null=True, blank=True)
     updated_date = models.DateTimeField(_("تاریخ آپدیت"), auto_now=True, null=True, blank=True)
